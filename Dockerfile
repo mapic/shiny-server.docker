@@ -32,11 +32,18 @@ RUN sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xe
 # 1.3 update sources
 RUN sudo apt-get update -y
 
+# set R version
+ENV R_BASE_VERSION 3.5.1
+
+
 # 1.4. get depdendencies
 RUN apt-get install -y libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 
 # 1.4 install R
-RUN sudo apt-get install -y r-base r-base-dev r-recommended
+# RUN sudo apt-get install -y r-base r-base-dev r-recommended
+RUN sudo apt-get install y r-base=${R_BASE_VERSION}-* \
+    r-base-dev=${R_BASE_VERSION}-* \
+    r-recommended=${R_BASE_VERSION}-*
 
 # 1.5 upgrade R
 RUN sudo apt-get upgrade -y
