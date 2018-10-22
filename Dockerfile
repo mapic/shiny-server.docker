@@ -45,7 +45,7 @@ RUN sudo apt-get upgrade -y
 RUN echo 'options(download.file.method = "wget")' >> /etc/R/Rprofile.site 
 
 
-# 2. INSTALL SHINY SERVER PRO
+# 2. INSTALL SHINY SERVER
 # -
 # 2.1 install dependencies
 RUN sudo apt-get install -y gdebi-core
@@ -53,7 +53,7 @@ RUN sudo apt-get install -y gdebi-core
 # 2.2 download latest package
 RUN sudo wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.9.923-amd64.deb
 
-# 2.3 intall shiny server pro
+# 2.3 intall shiny server
 RUN sudo gdebi -n shiny-server-1.5.9.923-amd64.deb
 
 # 2.4 install shiny R packages
