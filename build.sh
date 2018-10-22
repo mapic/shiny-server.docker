@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # build
-docker build -t mapic/shiny-server-pro .
+docker build -t mapic/shiny-server .

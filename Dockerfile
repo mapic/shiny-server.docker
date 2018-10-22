@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 LABEL maintainer="knutole@mapic.io"
-LABEL repository="https://github.com/mapic/shiny-server-pro.docker"
+LABEL repository="https://github.com/mapic/shiny-server.docker"
 LABEL version="panda"
 
 WORKDIR /home/
@@ -26,7 +26,8 @@ RUN apt-get upgrade -y
 RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 
 # 1.2 add sources
-RUN sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+# RUN sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+RUN sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/'
 
 # 1.3 update sources
 RUN sudo apt-get update -y
@@ -50,10 +51,10 @@ RUN echo 'options(download.file.method = "wget")' >> /etc/R/Rprofile.site
 RUN sudo apt-get install -y gdebi-core
 
 # 2.2 download latest package
-RUN sudo wget https://s3.amazonaws.com/rstudio-shiny-server-pro-build/ubuntu-14.04/x86_64/shiny-server-commercial-1.5.10.990-amd64.deb
+RUN sudo wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.9.923-amd64.deb
 
 # 2.3 intall shiny server pro
-RUN sudo gdebi -n shiny-server-commercial-1.5.10.990-amd64.deb
+RUN sudo gdebi -n shiny-server-1.5.9.923-amd64.deb
 
 # 2.4 install shiny R packages
 ADD ./install-r-packages.sh /home/
