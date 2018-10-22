@@ -41,7 +41,7 @@ RUN apt-get install -y libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 
 # 1.4 install R
 # RUN sudo apt-get install -y r-base r-base-dev r-recommended
-RUN sudo apt-get install y r-base=${R_BASE_VERSION}-* \
+RUN sudo apt-get install -y r-base=${R_BASE_VERSION}-* \
     r-base-dev=${R_BASE_VERSION}-* \
     r-recommended=${R_BASE_VERSION}-*
 
