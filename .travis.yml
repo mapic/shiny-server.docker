@@ -4,4 +4,5 @@ services:
 install:
   - docker build -t mapic/shiny-server .
 script:
+  - docker run -d mapic/shiny-server bash print-versions.sh
   - docker run -d mapic/shiny-server

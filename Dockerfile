@@ -93,5 +93,8 @@ ENV LC_ALL en_US.UTF-8
 # 4.3 add entrypoint
 ADD ./docker-entrypoint.sh /home/
 
+# 4.4 add version printing 
+ADD ./print-versions.sh /home/
+
 # 4.4 add default command
 CMD ["bash", "/home/docker-entrypoint.sh"]
