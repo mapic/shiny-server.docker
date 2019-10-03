@@ -22,5 +22,6 @@ while read F  ; do
         echo ""
     fi
 
-done <r-packages.list
+# done <r-packages.list
+done <$1
 

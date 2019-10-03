@@ -75,7 +75,12 @@ ADD ./install-r-packages.sh /home/
 ADD ./r-packages.list /home/
 
 # 3.2 install R packages
-RUN bash install-r-packages.sh
+RUN bash install-r-packages.sh r-packages.list
+
+# 3.3 install extra R package
+ADD ./r-packages-extra.list /home/
+RUN bash install-r-packages.sh r-packages-extra.list
+
 
 
 # 4. CONFIGURE
