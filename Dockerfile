@@ -81,7 +81,10 @@ RUN bash install-r-packages.sh r-packages.list
 ADD ./r-packages-extra.list /home/
 RUN bash install-r-packages.sh r-packages-extra.list
 
-
+# 3.4 install R packages from github
+ADD ./r-packages-github.list /home/
+ADD ./install-r-packages-github.sh /home/
+RUN bash install-r-packages-github.sh r-packages-github.list
 
 # 4. CONFIGURE
 # ------------
