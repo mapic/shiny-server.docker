@@ -67,6 +67,13 @@ RUN sudo wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${S
 # 2.4 intall shiny server
 RUN sudo gdebi -n shiny-server-${SHINY_SERVER_VERSION}-amd64.deb
 
+# 2.5 set the locale
+RUN apt-get clean && apt-get -y update && apt-get install -y locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8  
+
 
 # 3. INSTALL R PACKAGES
 # ---------------------
@@ -86,17 +93,11 @@ ADD ./r-packages-github.list /home/
 ADD ./install-r-packages-github.sh /home/
 RUN bash install-r-packages-github.sh r-packages-github.list
 
+
 # 4. CONFIGURE
 # ------------
 # 4.1 expose ports
 EXPOSE 3838
-
-# 4.2 set the locale
-RUN apt-get clean && apt-get -y update && apt-get install -y locales
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
-ENV LC_ALL en_US.UTF-8   
 
 # 4.3 add entrypoint
 ADD ./docker-entrypoint.sh /home/
