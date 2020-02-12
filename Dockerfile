@@ -20,7 +20,10 @@ RUN apt-get update -y
 RUN apt-get install -y nodejs
 RUN npm install -g forever
 
-# 0.3 upgrade packages 
+# 0.3 install libudunits2-dev
+RUN apt-get install -y libudunits2-dev
+
+# 0.4 upgrade packages 
 RUN apt-get upgrade -y
 
 
@@ -77,7 +80,7 @@ ENV LC_ALL en_US.UTF-8
 
 # 3. INSTALL R PACKAGES
 # ---------------------
-# 3.0 add dependencies
+# 3.0 add gdal dependencies
 RUN sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update -y
 RUN sudo apt-get update && apt-get install -y libgdal-dev gdal-bin libgdal20 libproj-dev && apt-get upgrade -y
 
@@ -97,12 +100,12 @@ ADD ./r-packages-github.list /home/
 ADD ./install-r-packages-github.sh /home/
 RUN bash install-r-packages-github.sh r-packages-github.list
 
-# 3.4B install archived R packages from cran
-add ./r-packages-cran-archived.list /home/
+# 3.5 install archived R packages from cran
+ADD ./r-packages-cran-archived.list /home/
 ADD ./install-r-packages-cran-archived.sh /home/
 RUN bash install-r-packages-cran-archived.sh r-packages-cran-archived.list
 
-# 3.5 debug install
+# 3.6 debug install
 # ADD ./r-packages-debug.list /home/
 # RUN bash install-r-packages.sh r-packages-debug.list
 
