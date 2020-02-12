@@ -77,6 +77,10 @@ ENV LC_ALL en_US.UTF-8
 
 # 3. INSTALL R PACKAGES
 # ---------------------
+# 3.0 add dependencies
+RUN sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update -y
+RUN sudo apt-get update && apt-get install -y libgdal-dev gdal-bin libgdal20 libproj-dev && apt-get upgrade -y
+
 # 3.1 add package scripts
 ADD ./install-r-packages.sh /home/
 ADD ./r-packages.list /home/
@@ -93,6 +97,9 @@ ADD ./r-packages-github.list /home/
 ADD ./install-r-packages-github.sh /home/
 RUN bash install-r-packages-github.sh r-packages-github.list
 
+# 3.5 debug install
+# ADD ./r-packages-debug.list /home/
+# RUN bash install-r-packages.sh r-packages-debug.list
 
 # 4. CONFIGURE
 # ------------

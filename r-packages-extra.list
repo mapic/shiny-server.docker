@@ -3,3 +3,4 @@ config
 ids
 fs
 shinycssloaders
+rgdal
