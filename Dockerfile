@@ -97,6 +97,11 @@ ADD ./r-packages-github.list /home/
 ADD ./install-r-packages-github.sh /home/
 RUN bash install-r-packages-github.sh r-packages-github.list
 
+# 3.4B install archived R packages from cran
+add ./r-packages-cran-archived.list /home/
+ADD ./install-r-packages-cran-archived.sh /home/
+RUN bash install-r-packages-cran-archived.sh r-packages-cran-archived.list
+
 # 3.5 debug install
 # ADD ./r-packages-debug.list /home/
 # RUN bash install-r-packages.sh r-packages-debug.list
