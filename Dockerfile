@@ -11,17 +11,12 @@ WORKDIR /home/
 # 0. INSTALL DEPENDENCIES & UPGRADE
 # ---------------------------------
 # 0.1 install deps
-RUN apt-get update -y
-RUN apt-get install -y sudo software-properties-common apt-transport-https fish git wget curl htop nano net-tools iputils-ping 
+RUN apt-get update && apt-get install -y sudo software-properties-common apt-transport-https fish git wget curl htop nano net-tools iputils-ping 
 
 # 0.2 install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
-RUN apt-get update -y
-RUN apt-get install -y nodejs
+RUN apt-get update && apt-get install -y nodejs
 RUN npm install -g forever
-
-# 0.3 install libudunits2-dev
-RUN apt-get install -y libudunits2-dev
 
 # 0.4 upgrade packages 
 RUN apt-get upgrade -y
@@ -38,21 +33,18 @@ RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D6
 # 1.3 add sources
 RUN sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/'
 
-# 1.4 update sources
-RUN sudo apt-get update -y
+# 1.4. update && get depdendencies
+RUN apt-get update && apt-get install -y libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 
-# 1.5. get depdendencies
-RUN apt-get install -y libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
-
-# 1.6 install R
+# 1.5 install R
 RUN sudo apt-get install -y r-base=${R_BASE_VERSION}-* \
     r-base-dev=${R_BASE_VERSION}-* \
     r-recommended=${R_BASE_VERSION}-*
 
-# 1.7 upgrade R
+# 1.6 upgrade R
 RUN sudo apt-get upgrade -y
 
-# 1.8 configure download method for R
+# 1.7 configure download method for R
 RUN echo 'options(download.file.method = "wget")' >> /etc/R/Rprofile.site 
 
 
@@ -62,7 +54,7 @@ RUN echo 'options(download.file.method = "wget")' >> /etc/R/Rprofile.site
 ENV SHINY_SERVER_VERSION 1.5.9.923
 
 # 2.2 install dependencies
-RUN sudo apt-get install -y gdebi-core
+RUN sudo apt-get update && sudo apt-get install -y gdebi-core
 
 # 2.3 download shiny server deb package
 RUN sudo wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_SERVER_VERSION}-amd64.deb
@@ -81,8 +73,8 @@ ENV LC_ALL en_US.UTF-8
 # 3. INSTALL R PACKAGES
 # ---------------------
 # 3.0 add gdal dependencies
-RUN sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update -y
-RUN sudo apt-get update && apt-get install -y libgdal-dev gdal-bin libgdal20 libproj-dev && apt-get upgrade -y
+RUN sudo add-apt-repository ppa:ubuntugis/ppa
+RUN sudo apt-get update && apt-get install -y libgdal-dev gdal-bin libgdal20 libproj-dev libudunits2-dev && apt-get upgrade -y
 
 # 3.1 add package scripts
 ADD ./install-r-packages.sh /home/
